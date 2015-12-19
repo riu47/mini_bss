@@ -1,0 +1,37 @@
+<h1>ミニ BBS</h1>
+
+<div>
+  <form method="post" action="/newPost">
+    <input type="hidden" name="parent" value="999"><!-- スレッドは「0」を指定 -->
+    <label>タイトル:<input type="text" name="title" placeholder="第5次 人類補完計画の件"></label><br>
+    <label>名前:<input type="text" name="name" placeholder="この星の無数の塵の一つ"></label><br>
+    <label>本文:<textarea name="message" placeholder="先日の巨大ロボットが出現したことについてなのですが…"></textarea></label><br>
+    <label><input type="submit" name="投稿"></label><br>
+  </form>
+</div>
+
+<% @contents.each do |content| %>
+<div class="thread">
+  <p class="title"><%= content.title %></p><%= content.message %><p class="name"><%= content.name %> より</p></p>
+  <hr>
+  <% @res.each do |re| %>
+  <% if re.parent == content.id %>
+  <div>
+    <p class="res"><%= re.message %>
+      <br>
+      <p class="name"><%= re.name %> より</p>
+    </p><br>
+    <hr>
+  </div>
+  <% end %>
+  <% end %>
+<form method="post" action="/newPost">
+  <input type="hidden" name="parent" value="<%= content.id %>"><!-- スレッドは「0」を指定 -->
+  <input type="hidden" name="title" value="<%= content.title %>"><!-- スレッドのタイトルを引き継ぐ -->
+  <label>名前:<input type="text" name="name" placeholder="この星の無数の塵の一つ"></label><br>
+  <label>本文:<textarea name="message" placeholder="先日の巨大ロボットが出現したことについてなのですが…"></textarea></label><br>
+  <label><input type="submit" value="返信"></label><br>
+</form>
+</div><br>
+<% end %>
+<a href="/">リロード</a>

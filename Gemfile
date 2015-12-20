@@ -2,8 +2,9 @@
 source "https://rubygems.org"
 
  gem 'sinatra'
- gem 'foreman'
- gem 'heroku'
+ gem 'sinatra-contrib'
+ gem "sinatra-activerecord", :require => 'sinatra/activerecord'
+ gem "activerecord"
 
 group :development do
   gem 'sqlite3'
